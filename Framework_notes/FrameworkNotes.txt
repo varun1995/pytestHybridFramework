@@ -139,7 +139,7 @@ pytest -s -v -m "sanity or regression" --html="reports\report.html" .\testCases
 --browser chrome
 
 
-
+Step-11: Adding the framework to git
 
 
 
