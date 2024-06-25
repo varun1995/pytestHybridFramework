@@ -1,0 +1,31 @@
+
+06/23/2024 10:53:28 AM: INFO: This is an info message
+06/23/2024 10:53:28 AM: ERROR: This is an error message
+06/23/2024 10:54:46 AM: INFO: This is an info message
+06/23/2024 10:54:46 AM: ERROR: This is an error message
+06/23/2024 10:57:29 AM: INFO: This is an info message
+06/23/2024 10:57:29 AM: ERROR: This is an error message
+06/23/2024 10:58:07 AM: INFO: This is an info message
+06/23/2024 10:58:07 AM: ERROR: This is an error message
+06/23/2024 11:02:35 AM: INFO: This is an info message
+06/23/2024 11:02:35 AM: ERROR: This is an error message
+06/23/2024 11:03:05 AM: INFO: This is an info message
+06/23/2024 11:03:05 AM: ERROR: This is an error message
+06/23/2024 11:07:49 AM: INFO: This is an info message
+06/23/2024 11:07:49 AM: ERROR: This is an error message
+06/23/2024 11:07:58 AM: INFO: **** test_001_AccountRegistration started *** 
+06/23/2024 11:08:02 AM: INFO: Launching application
+06/23/2024 11:08:02 AM: INFO: clicking on MyAccount--> register
+06/23/2024 11:13:56 AM: INFO: This is an info message
+06/23/2024 11:13:56 AM: ERROR: This is an error message
+06/23/2024 11:14:03 AM: INFO: **** test_001_AccountRegistration started *** 
+06/23/2024 11:14:07 AM: INFO: Launching application
+06/23/2024 11:14:07 AM: INFO: clicking on MyAccount--> register
+06/24/2024 01:33:06 PM: INFO: This is an info message
+06/24/2024 01:33:06 PM: ERROR: This is an error message
+06/24/2024 01:33:14 PM: INFO: **** Starting test_003_login_Datadriven *******
+06/24/2024 01:36:08 PM: INFO: This is an info message
+06/24/2024 01:36:08 PM: ERROR: This is an error message
+06/24/2024 01:36:13 PM: INFO: **** test_001_AccountRegistration started *** 
+06/24/2024 01:36:15 PM: INFO: Launching application
+06/24/2024 01:36:15 PM: INFO: clicking on MyAccount--> register

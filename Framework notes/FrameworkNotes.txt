@@ -1,0 +1,152 @@
+Step 1: Create new Project & Install Required Packages/plugins
+
+Pytest – Python built-in unit test framework (5.4.3 Preferred)
+selenium  - selenium libraries
+webdriver-manager – for drivers
+pytest-html – reports
+pytest-xdist  - parallel testing
+openpyxl – xl file
+allure-pytest  - report
+
+Create requirements.txt file contains all packages and install it ==> pip install -r requirements.txt
+
+To create a requirements.txt file from the currently installed packages in your environment,
+you can use the pip freeze command ====> pip freeze > requirements.txt
+
+Step 2: Create Folder Structure
+
+Step 3: Automating Register account test case
+
+	3.1: Create page object classes for HomePage & AccountRegistration page under "pageObjects"
+	 - Created for every page we interact with.
+     - Must only contain information about elements to be interacted with and how to locate them.
+     - The constructor contains a webdriver instance in order to interact with the identified elements.
+     - Every action related to any element on a webpage must be present in the pageObject class itself.
+
+	3.2: Create conftest.py under "testCases" with driver manager.
+	- Contains common fixtures to be used throughout the project.
+	- Any function needing to use a fixture must have the fixture name as an argument.
+	- To simplify the process of using the right webdriver for our execution, we use the
+	  "ChromeDriverManager().install()" function which automatically does this for us.
+	- To run in headless mode i.e without actually opening the web browser, we can use the following logic in the setup
+	  fixture:
+	  from selenium.webdriver.chrome.options import Options
+
+	  @pytest.fixture()
+      def setup():
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+
+	3.3: Create AccountRegistration testcase under "testCases"
+
+	3.4 Write a utility file to generate random string for email.
+	- Done so that we test with a new email everytime the script runs.
+
+Step 4: capture screenshot on failures
+	4.1.  Update AccountRegistration Test case with capture Screenshot under "testCases"
+	- driver.save_screenshot() function used for this purpose.
+	- A good idea is to save the failure screenshot with same name as the test function name i.e in this case
+	'test_account_reg.png'.
+
+
+Step 5:  Read common values from ini file.
+	5.1: Add "config.ini" file in "configurations" folder.
+	- Contains common things like URL, username, password etc.
+
+	5.2: Create "readProperties.py" utility file under utilities package to read common data.
+	- Instead of reading things directly from the .ini file into our test case, we make use of an intermediate file
+	which would do this job for us.
+	- To read such a config file, we make use of the 'configparser' module.
+	- 'configparser.get()' function is used to read specific contents of the config file.
+	- To navigate to the location of the config file, we make use of a function from the 'os' module in Python.
+	  i.e os.path.abspath(os.curdir) will jump to the project root directory.
+
+	5.3: Replace hard coded values in AccountRegistration testcase.
+	- Once the helper file is ready, we can invoke specific functions from it in our test case like getting the URL etc.
+
+
+Step 6: Adding logs to test case
+
+	6.1: Add customLogger.py under utilities package.
+	- We define the log level (warn, debug, info, error, fatal) and the log format in this file.
+	- The various log levels are subsets of each other i.e if log level is set to 'warn' ==> warn + debug + info +
+	error + fatal logs will be printed in the log file.
+	- Whereas, if log level is set to 'info' ==> info + error + fatal logs will be printed.
+
+	6.2: Add logs to AccountRegistration test case.
+	- The static logger function can be invoked in the test case and various messages can be printed like
+	'logger.info("This is a log message!!!")''
+
+Step 7:  Run Tests on Desired Browser(Cross Browser Testing)/Parallel
+
+	7.1: update contest.py with required fixtures which will accept command line argument (browser).
+    7.2: Pass browser name as argument in command line
+
+    To Run tests on desired browser
+    pytest -s -v .\testCases\test_001_AccountRegistration.py --browser edge
+
+    To Run tests parallel
+    pytest -s -v -n=3 .\testCases\test_001_AccountRegistration.py --browser edge
+
+    - We use a special pytest hook called as 'pytest_addoption(parser)' in conftest.py which automatically reads the
+    command line arguments like '--browser edge'
+    - We can then create a fixture to read such CLI info and pass it to our original fixture as a parameter.
+    - To execute tests parallely, we need to install the 'pytest-xdist' plugin and specify the number of thread using
+    the '-n = <NO OF THREADS>' while executing the pytest command.
+
+Step 8:  Generate pytest HTML Reports
+    8.1: Update conftest.py with pytest hooks
+    8.2 To execute:
+    pytest -s -v --html=reports\report.html .\testCases\test_001_AccountRegistration.py --browser chrome
+
+    - We need to use a special pytest hook 'pytest_configure()' which contains the location for the report along with
+    the name format the file must be with.
+
+Step-9: Perform data driven testing of login functionality
+    - We use the 'openpyxl' library to read data from an excel file.
+    - A separate utility function is created to read and modify the excel data.
+    - We use 'Decision table' testing technique where certain combinations of username and password
+    are tested leading to valid or invalid login.
+
+
+Step-10: Group tests using markers
+
+Grouping markers( Add markers to every test method)
+--------------------------------
+@pytest.mark.sanity
+@pytest.mark.regression
+
+Add Marker entries in pytest.ini file ===> stored in /testCases folder.
+--------------------------------
+pytest.ini
+--------
+[pytest]
+markers =
+    sanity
+    regression
+
+
+Select groups at run time
+-----------------------------------
+
+-m "sanity"
+-m "regression"
+-m "sanity and regression"
+-m "sanity or regression"
+
+
+pytest -s -v -m "sanity or regression" --html="reports\report.html" .\testCases
+--browser chrome
+
+
+
+
+
+
+
+
+
+
+
+
+
